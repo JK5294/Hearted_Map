@@ -60,3 +60,24 @@ TextStyle get TextSize12_R {
     fontWeight: FontWeight.w400,
   ));
 }
+
+
+
+TextStyle get TextSize14_Blue {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+    color: Color(0xFF799ADA),
+    fontSize: 14,
+    fontFamily: 'Microsoft Himalaya',
+    fontWeight: FontWeight.w400,
+  ));
+}
+TextStyle get TextSize14_W {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+    color: Color(0xFFFFFFFF),
+    fontSize: 14,
+    fontFamily: 'Microsoft Himalaya',
+    fontWeight: FontWeight.w400,
+  ));
+}

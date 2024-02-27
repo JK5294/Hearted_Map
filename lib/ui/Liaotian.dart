@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+
 import 'package:image_picker/image_picker.dart';
+
 import 'package:hearted_map/theme/sh_theme.dart';
- 
-
-
 void main() {
   runApp(const MyApp());
 }
@@ -51,10 +52,11 @@ class _LiaotianState extends State<Liaotian> {
   Future<void> openGallery() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      // 在这里处理用户选择的图片文件，比如显示在界面上或上传到服务器
-      final bytes = await pickedFile.readAsBytes(); // 暂时以字节流传递
-      channel.sink.add(bytes);
-    }
+  // 在这里处理用户选择的图片文件，比如显示在界面上或上传到服务器
+  final bytes = await pickedFile.readAsBytes(); // 读取图片文件为字节流
+  String base64Image = base64Encode(bytes); // 将字节流编码为base64字符串
+  channel.sink.add(base64Image); // 以base64形式传递图片数据
+}
   }
 
   final List<Message> messages = [
@@ -90,7 +92,7 @@ class _LiaotianState extends State<Liaotian> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(0.0); // 确保页面恢复原来位置
     });
-    // 在应用启动时读取用户ID，暂时没用
+  
   }
 
   @override
@@ -162,7 +164,7 @@ class _LiaotianState extends State<Liaotian> {
                                   Text(
                                     '直接离开信号会结束哦~',
                                     textAlign: TextAlign.center,
-                                    style: TextSize_16_B
+                                    style:TextSize_16_B
                                   ),
                                 ],
                               ),
@@ -175,7 +177,7 @@ class _LiaotianState extends State<Liaotian> {
                                 child: Container(
                                   child: Text(
                                     '继续聊天',
-                                    style: TextStyle(color: Colors.blue),
+                                    style: TextSize14_Blue
                                   ),
                                 ),
                               ),
@@ -186,7 +188,7 @@ class _LiaotianState extends State<Liaotian> {
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
-                                  child: Text('结束信号', style: TextStyle(color: Colors.white)),
+                                  child: Text('结束信号', style: TextSize14_W),
                                 ),
                               ),
                             ],
@@ -256,7 +258,7 @@ class _LiaotianState extends State<Liaotian> {
                   child: Container(
                     height: 590 * h,
                     width: 390 * w,
-                    color: Color.fromARGB(255, 27, 198, 81),
+                    color:Colors.white,
                     child: ListView.builder(
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
@@ -272,12 +274,24 @@ class _LiaotianState extends State<Liaotian> {
                                 if (!message.isMe) CircleAvatar(backgroundImage: AssetImage(message.userAvatar)),
                                 SizedBox(width: 8 * w),
                                 Container(
-                                  height: 30 * h,
+                                  height: 40 * h,
                                   child: Text(message.text),
                                   decoration: BoxDecoration(
-                                    color: message.isMe ? Colors.blue : Colors.grey[300],
+                                    color: message.isMe ? Color(0xFFE1F7CB): Colors.white,
                                     borderRadius: BorderRadius.circular(12),
+                                       border: Border.all(
+      color: Colors.grey,
+      width: 1.0,
+    ),
+  boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.3),
+        blurRadius: 4,
+        offset: Offset(0, 2),
+      ),
+    ],
                                   ),
+
                                   padding: EdgeInsets.all(3),
                                 ),
                                 SizedBox(width: 8 * w),
@@ -324,7 +338,7 @@ class _LiaotianState extends State<Liaotian> {
                                 width: 24 * w, // 图片宽度
                                 height: 24 * h, // 图片高度
                               ),
-                              onPressed: openGallery,//打开相册
+                              onPressed: openGallery,
                             ),
                             IconButton(
                               icon: Image.asset(
