@@ -19,7 +19,7 @@ class _LoadingPageState extends State<LoadingPage>
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => HomeScreen(),
         ),
       );
     });
