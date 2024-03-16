@@ -1,32 +1,32 @@
-// import 'package:calendar/db/db_helper.dart';
-// import 'package:calendar/models/task.dart';
-// import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-// class TaskController extends GetxController {
-//   @override
-//   void onReady() {
-//     super.onReady();
-//   }
+class TaskController extends GetxController {
+  Future<String> sendLGDataToBackend(String phone, String pass) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+    };
 
-//   var taskList = <Task>[].obs;
+    var body = jsonEncode({
+      'phoneNumber': phone,
+      'password': pass,
+    });
 
-//   Future<int> addTask({Task? task}) async {
-//     //异步编程 await 一定要用
-//     return await DBHelper.insert(task);
-//   }
+    var response = await http.post(
+      Uri.parse('https://192.168.1.109:8080//heartedmap/register'),
+      headers: headers,
+      body: body,
+    );
 
-//   void getTasks() async {
-//     List<Map<String, dynamic>> tasks = await DBHelper.query();
-//     taskList.assignAll(tasks.map((data) => new Task.fromJson(data)).toList());
-//   }
-
-//   void delete(Task task) async {
-//     DBHelper.delete(task);
-//     getTasks();
-//   }
-
-//   void markTaskCompleted(int id) async {
-//     await DBHelper.update(id);
-//     getTasks();
-//   }
-// }
+    if (response.statusCode == 200) {
+      print(response.body);
+      return response.body;
+    } else {
+      print(response.reasonPhrase);
+      // 根据具体需求返回相应的错误信息或进行错误处理
+      return 'Error: ${response.reasonPhrase}';
+    }
+  }
+}

@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
+import 'package:hearted_map/models/makeMaptextList.dart';
 import 'package:hearted_map/theme/theme.dart';
 import 'package:hearted_map/ui/MakeMapPage/widgets/backButton.dart';
 import 'package:hearted_map/ui/MakeMapPage/widgets/bigTag.dart';
+import 'package:hearted_map/ui/MakeMapPage/widgets/smalltagbuilder.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class EditMap extends StatefulWidget {
@@ -17,26 +19,13 @@ class EditMap extends StatefulWidget {
 
 class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
   PageController _controller = PageController();
+  LocalDataTask Task = LocalDataTask();
   ScrollController ListControlloer = ScrollController();
   late AnimationController Acontroller;
   late Animation<double> animation;
-  List<bool> active = [true, false, false];
-  List<String> tag = [
-    "寵物",
-    "運動",
-    "影視",
-    "旅行",
-    "閱讀",
-    "音樂",
-    "MBTI",
-    "星座",
-    "性格",
-    "遊戲",
-    "學習的專業",
-    "美式"
-  ];
-  List<String> tagToNextPage = [];
-
+  List<bool> active = [true, false];
+  late TabController _tabController;
+  List tagToNextPage = [];
   void initState() {
     super.initState();
     var i = 0;
@@ -57,6 +46,9 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
         } else if (status == AnimationStatus.dismissed && i < 3) {
           Acontroller.forward();
         }
+
+        // _tabController = TabController(vsync: this, length: 6);
+        // _tabController.addListener(() {});
       });
   }
 
@@ -73,10 +65,10 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
             margin: EdgeInsets.fromLTRB(30, 30, 30, 15),
             child: SmoothPageIndicator(
               controller: _controller,
-              count: 3,
+              count: 2,
               effect: WormEffect(
                 dotHeight: 20,
-                dotWidth: 90,
+                dotWidth: 150,
                 activeDotColor: SHColors.red,
                 dotColor: SHColors.grey,
               ),
@@ -105,14 +97,6 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
                       fontFamily: 'Microsoft Himalaya'),
                 )),
                 // SizedBox(),
-                Container(
-                    child: Text(
-                  "Step 3",
-                  style: TextStyle(
-                      color: active[2] ? Colors.black : Colors.grey,
-                      fontSize: 14,
-                      fontFamily: 'Microsoft Himalaya'),
-                )),
               ],
             ),
           ),
@@ -123,7 +107,7 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
               physics: NeverScrollableScrollPhysics(),
               controller: _controller,
               onPageChanged: (index) {
-                for (var i = 0; i < 3; i++) {
+                for (var i = 0; i < 2; i++) {
                   active[i] = false;
                 }
                 ;
@@ -133,7 +117,6 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
               children: [
                 _Page1(),
                 _Page2(),
-                _Page3(),
               ],
             ),
           ),
@@ -153,53 +136,30 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
                   "images/takephoto.svg",
                   fit: BoxFit.fill,
                 )),
-            Wrap(
-                children: List.generate(tag.length, (index) {
-              return bigTag(
-                  label: tag[index],
-                  onTagTapped: (value) {
-                    // print(tagToNextPage.length);
-                    // print("1: ${value.replaceAll('*', '')}222");
-                    if (tagToNextPage.isEmpty) {
-                      tagToNextPage.add(value);
-                    } else {
-                      while (true) {
-                        var i = 0;
-                        i += 1;
-                        // print(tagToNextPage[i] == "${value}*");
-                        print(tagToNextPage[i == 0 ? i : i - 1]);
-                        if (tagToNextPage[i == 0 ? i : i - 1] != value) {
-                          print("in");
-                          tagToNextPage.add(value);
-                          break;
-                        } else if (tagToNextPage[i == 0 ? i : i - 1] == value) {
-                          print("in *");
-                          tagToNextPage.remove(value.replaceAll("*", ""));
-                          print("insdie ${tagToNextPage}");
-                          break;
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    print("outsdie ${tagToNextPage}");
-                  }
-                  // setState(() {});
-
-                  );
-            })),
+            bigTag(
+              items: Task.tag,
+              listreturn: (List<String> selectedItems) {
+                setState(() {
+                  tagToNextPage = selectedItems;
+                  print('Selected items: $selectedItems');
+                });
+              },
+            ),
             Container(
               margin: EdgeInsets.all(20),
               // color: Colors.red,
               child: GestureDetector(
                 onTap: () {
-                  if (tagToNextPage.isEmpty) {
-                    Acontroller.forward();
-                  } else {
-                    _controller.nextPage(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeIn);
-                  }
+                  setState(() {
+                    print(tagToNextPage);
+                    if (tagToNextPage.isEmpty) {
+                      Acontroller.forward();
+                    } else {
+                      _controller.nextPage(
+                          duration: Duration(milliseconds: 400),
+                          curve: Curves.easeIn);
+                    }
+                  });
                 },
                 child: AnimatedBuilder(
                     animation: animation,
@@ -208,8 +168,8 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
                         angle: animation.value,
                         child: Container(
                           child: Text(
-                            'Next Page',
-                            style: TextStyle(color: Colors.red, fontSize: 12),
+                            '下一頁',
+                            style: TextSize12_R,
                           ),
                         ),
                       );
@@ -245,20 +205,27 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
               height: 20,
             ),
             Container(
-                margin: EdgeInsets.all(30),
+                // margin: EdgeInsets.all(30),
+                child: Flexible(
+              flex: 1, // 使子元素等宽
+              child: AspectRatio(
+                aspectRatio: 17 / 11, // 宽高比
                 child: Container(
-                    child: Flexible(
-                  flex: 1, // 使子元素等宽
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9, // 宽高比
-                    child: SvgPicture.asset(
-                      "images/green.svg",
-                      fit: BoxFit.cover,
-                    ),
+                  // color: Colors.red,
+                  margin: EdgeInsets.all(30),
+                  child: SvgPicture.asset(
+                    "images/green.svg",
+                    fit: BoxFit.cover,
                   ),
-                ))),
+                ),
+              ),
+            )),
             Container(
-              height: 50,
+              child: MultiSelectListView(),
+              // child: TabBarView(
+              //   controller: _tabController,
+              //   children: [],
+              // ),
             )
           ],
         ),
@@ -274,23 +241,23 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
     );
   }
 
-  _Page3() {
-    return Container(
-      child: Container(
-        child: Column(
-          children: [],
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Colors.grey.shade300,
-            width: 2,
-          ),
-        ),
-      ),
-    );
-  }
+  // _Page3() {
+  //   return Container(
+  //     child: Container(
+  //       child: Column(
+  //         children: [],
+  //       ),
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         borderRadius: BorderRadius.circular(10),
+  //         border: Border.all(
+  //           color: Colors.grey.shade300,
+  //           width: 2,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   _appBar() {
     return AppBar(
@@ -304,8 +271,6 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
     );
   }
 }
-
-
 
 //  ListView.builder(
 //                 scrollDirection: Axis.horizontal,
