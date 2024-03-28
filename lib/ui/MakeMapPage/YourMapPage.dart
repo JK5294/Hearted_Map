@@ -161,7 +161,7 @@ class _MakeMapPageState extends State<MakeMapPage> {
           setState(() {
             switch (index) {
               case 0:
-                Get.to(Homepage());
+                // Get.to(Homepage());
                 activeIndex = index;
               case 1:
                 Get.to(MakeMapPage());

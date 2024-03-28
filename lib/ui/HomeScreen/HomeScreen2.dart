@@ -4,14 +4,14 @@ import 'package:hearted_map/ui/HomeScreen/cards/iland.dart';
 import 'package:hearted_map/ui/HomeScreen/cards/locationcard.dart';
 import 'package:hearted_map/ui/HomeScreen/cards/othercard.dart';
 
-List<bool> havecard = [
-  true,
-  true,
-]; //locationcard,othercard
 late double _with;
 late double _heigh;
 double w = _with / 393;
 double h = _heigh / 852;
+List<bool> havecard = [
+  true,
+  true,
+]; //locationcard,othercard
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -38,8 +38,7 @@ class _HomepageState extends State<Homepage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _with = MediaQuery.of(context).size.width;
-    _heigh = MediaQuery.of(context).size.height;
+
     _controller = AnimationController(
       duration: Duration(seconds: 5),
       vsync: this,

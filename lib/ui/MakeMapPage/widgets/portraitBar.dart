@@ -59,7 +59,9 @@ class _ListWheelScrollViewXState extends State<ListWheelScrollViewX> {
                   child: Container(
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: widget.images[index]),
+                        child: widget.images[(widget.images.length == 0)
+                            ? index % widget.images.length
+                            : index]),
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
                         color: Colors.black54,

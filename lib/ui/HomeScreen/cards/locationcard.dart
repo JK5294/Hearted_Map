@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hearted_map/ui/HomeScreen/HomeScreen2.dart';
 
+late double _with;
+late double _heigh;
+double w = _with / 393;
+double h = _heigh / 852;
+
 class locationcard extends StatefulWidget {
   const locationcard({super.key});
 
