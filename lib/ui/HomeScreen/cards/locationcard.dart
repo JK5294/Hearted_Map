@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hearted_map/main.dart';
 import 'package:hearted_map/ui/HomeScreen/HomeScreen2.dart';
 
 late double _with;
@@ -23,7 +24,7 @@ class _locationcardState extends State<locationcard> {
       ),
       child: GestureDetector(
           child: Image.asset(
-            "assets/png_picture/cards/locationcard.png",
+            "images/homescreen/cards/locationcard.png",
             fit: BoxFit.fill,
           ),
           onTap: () {

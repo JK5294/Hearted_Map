@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hearted_map/main.dart';
 
-late double _with;
-late double _heigh;
-double w = _with / 393;
-double h = _heigh / 852;
 List<double> wi1 = [
   w * 161,
   w * 138,
@@ -45,24 +42,24 @@ List<double> he2 = [
   h * 110
 ];
 List<String> background = [
-  "assets/png_picture/ilands/l1.png",
-  "assets/png_picture/ilands/l2.png",
-  "assets/png_picture/ilands/l3.png",
-  "assets/png_picture/ilands/l4.png",
-  "assets/png_picture/ilands/l5.png",
-  "assets/png_picture/ilands/l6.png",
-  "assets/png_picture/ilands/l7.png",
-  "assets/png_picture/ilands/l8.png",
+  "images/homescreen/ilands/l1.png",
+  "images/homescreen/ilands/l2.png",
+  "images/homescreen/ilands/l3.png",
+  "images/homescreen/ilands/l4.png",
+  "images/homescreen/ilands/l5.png",
+  "images/homescreen/ilands/l6.png",
+  "images/homescreen/ilands/l7.png",
+  "images/homescreen/ilands/l8.png",
 ];
 List<String> ilands = [
-  "assets/png_picture/ilands/a1.png",
-  "assets/png_picture/ilands/a2.png",
-  "assets/png_picture/ilands/a3.png",
-  "assets/png_picture/ilands/a4.png",
-  "assets/png_picture/ilands/a5.png",
-  "assets/png_picture/ilands/a6.png",
-  "assets/png_picture/ilands/a7.png",
-  "assets/png_picture/ilands/a8.png",
+  "images/homescreen/ilands/a1.png",
+  "images/homescreen/ilands/a2.png",
+  "images/homescreen/ilands/a3.png",
+  "images/homescreen/ilands/a4.png",
+  "images/homescreen/ilands/a5.png",
+  "images/homescreen/ilands/a6.png",
+  "images/homescreen/ilands/a7.png",
+  "images/homescreen/ilands/a8.png",
 ];
 List<String> title = ["美食达人", "电影爱好者", "风景摄影大师", "图书馆爱好者", "", ""];
 
@@ -96,7 +93,9 @@ Container creatland(
               SizedBox(
                 height: distanc2,
               ),
-              Text(landtitle)
+              Text(
+                landtitle,
+              )
             ]));
       },
     ),
