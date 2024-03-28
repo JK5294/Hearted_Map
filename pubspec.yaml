@@ -22,7 +22,7 @@ dependencies:
   flutter_svg: ^2.0.9
   animated_splash_screen: ^1.3.0
   http: 
-
+  animated_bottom_navigation_bar: ^1.3.3
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +34,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - images/map_piece/
   fonts:
     - family: Himalaya
       fonts: 

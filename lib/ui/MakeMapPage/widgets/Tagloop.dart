@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class AutoScrollingListView extends StatefulWidget {
   final bool reverse;
-  const AutoScrollingListView({Key? key, this.reverse = false})
+  final List<Widget> tags;
+  const AutoScrollingListView(
+      {Key? key, this.reverse = false, required this.tags})
       : super(key: key);
 
   @override
@@ -11,7 +13,6 @@ class AutoScrollingListView extends StatefulWidget {
 
 class _AutoScrollingListViewState extends State<AutoScrollingListView> {
   final ScrollController _controller = ScrollController();
-  final List<String> _tags = ['標籤1', '標籤2', '標籤3', '標籤4', '標籤5'];
   @override
   void initState() {
     super.initState();
@@ -39,15 +40,13 @@ class _AutoScrollingListViewState extends State<AutoScrollingListView> {
         scrollDirection: Axis.horizontal, // Add this line
         reverse: widget.reverse,
         controller: _controller,
-        itemCount: _tags.length,
+        itemCount: widget.tags.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
+            margin: EdgeInsets.all(10),
             width: 200, // Add this line
             alignment: Alignment.center,
-            child: Text(
-              _tags[index],
-              style: const TextStyle(fontSize: 24),
-            ),
+            child: widget.tags[index],
           );
         },
       ),
