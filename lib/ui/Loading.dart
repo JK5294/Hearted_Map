@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hearted_map/ui/HomeScreen.dart';
+import 'package:hearted_map/ui/HomeScreen/HomeScreen2.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});

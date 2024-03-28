@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
 import 'package:hearted_map/models/makeMaptextList.dart';
 import 'package:hearted_map/theme/theme.dart';
+import 'package:hearted_map/ui/MakeMapPage/YourMapPage.dart';
 import 'package:hearted_map/ui/MakeMapPage/widgets/backButton.dart';
 import 'package:hearted_map/ui/MakeMapPage/widgets/bigTag.dart';
 import 'package:hearted_map/ui/MakeMapPage/widgets/smalltagbuilder.dart';
@@ -19,15 +20,16 @@ class EditMap extends StatefulWidget {
 
 class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
   PageController _controller = PageController();
-  LocalDataTask Task = LocalDataTask();
   ScrollController ListControlloer = ScrollController();
   late AnimationController Acontroller;
   late Animation<double> animation;
   List<bool> active = [true, false];
   late TabController _tabController;
-  List tagToNextPage = [];
+  List<String> tagToNextPage = [];
   void initState() {
     super.initState();
+
+    LocalDataTask.Instance.addListener(() {});
     var i = 0;
     Acontroller = AnimationController(
       duration: const Duration(milliseconds: 200),
@@ -120,6 +122,34 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
               ],
             ),
           ),
+          Opacity(
+            opacity: active[0] ? 0.0 : 1,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (active[1] == true) {
+                    print("back");
+                    Get.back();
+                  } else {
+                    Null;
+                  }
+                });
+              },
+              child: Container(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: Text(
+                    "生成地图",
+                    style: TextSize_14,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: SHColors.buttonBackGround,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -137,7 +167,7 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
                   fit: BoxFit.fill,
                 )),
             bigTag(
-              items: Task.tag,
+              items: LocalDataTask.Instance.tag,
               listreturn: (List<String> selectedItems) {
                 setState(() {
                   tagToNextPage = selectedItems;
@@ -199,35 +229,10 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
   _Page2() {
     return Container(
       child: Container(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-                // margin: EdgeInsets.all(30),
-                child: Flexible(
-              flex: 1, // 使子元素等宽
-              child: AspectRatio(
-                aspectRatio: 17 / 11, // 宽高比
-                child: Container(
-                  // color: Colors.red,
-                  margin: EdgeInsets.all(30),
-                  child: SvgPicture.asset(
-                    "images/green.svg",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            )),
-            Container(
-              child: MultiSelectListView(),
-              // child: TabBarView(
-              //   controller: _tabController,
-              //   children: [],
-              // ),
-            )
-          ],
+        child: Container(
+          child: MultiSelectListView(
+            tagToNextPage: tagToNextPage,
+          ),
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -271,29 +276,3 @@ class _EditMapState extends State<EditMap> with SingleTickerProviderStateMixin {
     );
   }
 }
-
-//  ListView.builder(
-//                 scrollDirection: Axis.horizontal,
-//                 controller: ListControlloer,
-//                 itemCount: tagToNextPage.length,
-//                 itemBuilder: (context, index) {
-//                   return Container(
-//                     margin: EdgeInsets.all(10),
-//                     child: GestureDetector(
-//                       onTap: () {},
-//                       child: Container(
-//                         width: 70,
-//                         height: 25,
-//                         child: Center(
-//                             child: Text(
-//                           tagToNextPage[index],
-//                           style: TextSize12_B,
-//                         )),
-//                         decoration: BoxDecoration(
-//                             color: SHColors.cardColor,
-//                             borderRadius: BorderRadius.circular(10)),
-//                       ),
-//                     ),
-//                   );
-//                 },
-//               ),

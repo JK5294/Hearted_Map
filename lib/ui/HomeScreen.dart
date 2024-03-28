@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hearted_map/ui/IntroPage/IntroPage.dart';
+import 'package:hearted_map/ui/MakeMapPage/YourMapPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return IntroPage();
+    return MakeMapPage();
     // Scaffold(
     //   appBar: AppBar(),
     //   body: Text("Test"),
