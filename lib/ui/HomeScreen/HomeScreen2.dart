@@ -8,7 +8,7 @@ import 'package:hearted_map/theme/sh_colors.dart';
 import 'package:hearted_map/ui/HomeScreen/cards/iland.dart';
 import 'package:hearted_map/ui/HomeScreen/cards/locationcard.dart';
 import 'package:hearted_map/ui/HomeScreen/cards/othercard.dart';
-import 'package:hearted_map/main.dart';
+import 'package:hearted_map/main.dart' show h, w;
 import 'package:hearted_map/ui/MakeMapPage/YourMapPage.dart';
 import 'package:hearted_map/ui/SecondMap/AddSecondMap.dart';
 

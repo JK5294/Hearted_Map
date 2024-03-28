@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hearted_map/main.dart';
 import 'package:hearted_map/ui/HomeScreen/HomeScreen2.dart';
-
-// late double _with;
-// late double _heigh;
-// double w = _with / 393;
-// double h = _heigh / 852;
+import 'package:hearted_map/main.dart';
 
 class locationcard extends StatefulWidget {
   const locationcard({super.key});
@@ -24,7 +19,7 @@ class _locationcardState extends State<locationcard> {
       ),
       child: GestureDetector(
           child: Image.asset(
-            "images/homescreen/cards/locationcard.png",
+            "assets/png_picture/cards/locationcard.png",
             fit: BoxFit.fill,
           ),
           onTap: () {
