@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
-
-late double _with;
-late double _heigh;
-double w = _with / 393;
-double h = _heigh / 852;
+import 'package:hearted_map/main.dart';
 
 class othercard extends StatelessWidget {
   const othercard({super.key});

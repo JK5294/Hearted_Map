@@ -56,7 +56,6 @@ class _MakeMapPageState extends State<MakeMapPage> {
   final List<IconData> iconList = [
     Icons.home_filled,
     Icons.map_rounded,
-    // Icons.add,
     Icons.notifications_none,
     Icons.perm_identity_outlined
   ];

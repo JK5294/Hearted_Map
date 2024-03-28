@@ -35,6 +35,9 @@ flutter:
   assets:
     - images/
     - images/map_piece/
+    - images/homescreen/
+    - images/homescreen/ilands/
+    - images/homescreen/cards/
   fonts:
     - family: Himalaya
       fonts: 
