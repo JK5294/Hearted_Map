@@ -59,6 +59,7 @@ class _MakeMapPageState extends State<MakeMapPage> {
     Icons.notifications_none,
     Icons.perm_identity_outlined
   ];
+
   @override
   void initState() {
     super.initState();
@@ -160,13 +161,13 @@ class _MakeMapPageState extends State<MakeMapPage> {
           setState(() {
             switch (index) {
               case 0:
-                // Get.to(Homepage());
+                Get.to(Homepage());
                 activeIndex = index;
               case 1:
                 Get.to(MakeMapPage());
                 activeIndex = index;
               case 2:
-                // Get.to(AddSecondMap());
+                Get.to(AddSecondMap());
                 activeIndex = index;
               case 3:
                 // Get.to(ChatPage());

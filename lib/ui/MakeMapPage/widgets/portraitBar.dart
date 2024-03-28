@@ -7,6 +7,7 @@ class ListWheelScrollViewX extends StatefulWidget {
   final double diameterRatio;
   final void Function(int) onSelectedItemChanged;
   final List<Widget> images;
+
   ListWheelScrollViewX({
     super.key,
     // required this.builder,
@@ -45,32 +46,29 @@ class _ListWheelScrollViewXState extends State<ListWheelScrollViewX> {
             return AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
               opacity: isSelected ? 1.0 : 0.5,
-              child: AnimatedBuilder(
-                animation: widget.controller,
-                builder: (context, child) {
-                  final scale = isSelected ? 1.1 : 0.8;
-                  return Transform.scale(
-                    scale: scale,
-                    child: child,
-                  );
-                },
+              child: AnimatedScale(
+                duration: const Duration(milliseconds: 200),
+                scale: isSelected ? 1.1 : 0.8,
                 child: RotatedBox(
                   quarterTurns: 1, // Rotate back to original orientation
                   child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black54,
+                          blurRadius: 5,
+                          offset: Offset(5, 15),
+                          spreadRadius: 0.01,
+                          blurStyle: BlurStyle.normal,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: widget.images[(widget.images.length == 0)
                             ? index % widget.images.length
                             : index]),
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: Colors.black54,
-                        blurRadius: 5,
-                        offset: Offset(5, 15),
-                        spreadRadius: 0.01,
-                        blurStyle: BlurStyle.normal,
-                      ),
-                    ]),
                   ),
                 ),
               ),
