@@ -23,6 +23,10 @@ dependencies:
   animated_splash_screen: ^1.3.0
   http: 
   animated_bottom_navigation_bar: ^1.3.3
+  crypto: ^3.0.3
+  web_socket_channel: ^2.4.4
+  shared_preferences: ^2.2.2
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:

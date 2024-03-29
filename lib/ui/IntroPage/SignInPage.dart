@@ -30,7 +30,7 @@ class _SignInPageState extends State<SignInPage> {
 };
 var request = http.Request('POST', Uri.parse('http://47.122.29.55:9003/heartedmap/auth/login'));
 request.body = json.encode({
-   "phoneNumber": phone,
+   "email": phone,
    "password": pass
 });
 request.headers.addAll(headers);
@@ -148,7 +148,7 @@ else {
                 left: 0,
                 top: 0,
                 child: Text(
-                    '手机号码',
+                    '邮箱',
                     style: TextStyle(
                         color: Color(0xFF222534),
                         fontSize: 12,

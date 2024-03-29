@@ -32,7 +32,7 @@ class _NamebirthdayState extends State<Namebirthday> {
 var request = http.Request('POST', Uri.parse('http://47.122.29.55:9003/heartedmap/auth/register'));
 request.body = json.encode({
    "name":name,
-   "phoneNumber": phone,
+   "email": phone,
    "password": pass
 });
 request.headers.addAll(headers);
@@ -44,8 +44,8 @@ http.StreamedResponse response = await request.send();
 if (response.statusCode == 200) {
    print('正常');
    print(responseData['msg']);
-
-   //UserId=responseData['data']['id'];//空对象？提示邮箱不存在，最后要去注释
+  print(responseData['id']);
+   UserId=responseData['data']['id'];
    print(UserId);
 }
 else {
